@@ -25,6 +25,11 @@ function setup() {
    readState.on("value",function(data){
    gameState=data.val();
    });
+  
+  fedTime=database.ref('FeedTime');
+  fedTime.on("value",function(data){
+    lastFed=data.val();
+  });
 
 dog=createSprite(350,450);
 dog.addImage(jumpdog);
@@ -47,14 +52,9 @@ foodObj=new Food();
 } 
 function draw(){
 background(46, 139, 87);
-foodObj.display();
 textSize(30);
 fill("white");
 text("Food Packs: "+foodS,20,40);
-fedTime=database.ref('FeedTime');
-  fedTime.on("value",function(data){
-    lastFed=data.val();
-  });
   
   fill(255,255,254);
   textSize(15);
@@ -84,6 +84,7 @@ fedTime=database.ref('FeedTime');
     feed.hide();
     addFood.hide();
     dog.remove();
+    food.remove();
   }else{
    feed.show();
    addFood.show();
